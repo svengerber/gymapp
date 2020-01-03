@@ -32,7 +32,7 @@ jobs:
         
       - name: Deploying Master to K8S Cluster
         uses: appleboy/ssh-action@master
-        if: github.ref == refs/heads/master
+        if: github.ref == 'refs/heads/master'
         with:
           host: ${{ secrets.K8S_HOST }}
           username: ${{ secrets.K8S_USERNAME }}
@@ -42,7 +42,7 @@ jobs:
         
       - name: Deploying Beta to K8S Cluster
         uses: appleboy/ssh-action@master
-        if: github.ref == refs/heads/beta
+        if: github.ref == 'refs/heads/beta'
         with:
           host: ${{ secrets.K8S_HOST }}
           username: ${{ secrets.K8S_USERNAME }}
