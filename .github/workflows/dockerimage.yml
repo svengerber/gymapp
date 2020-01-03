@@ -29,13 +29,14 @@ jobs:
         run: docker push docker.pkg.github.com/captain-svxn/gymapp/ci-deploy:${GITHUB_REF##*/}
         
       - name: Deploy to K8S Cluster
-        uses: fifsky/ssh-action@master
+        uses: appleboy/ssh-action@master
         with:
-          command: |
-            kubectl rollout restart deployment gymapp-deployment
-            echo "Command has been run"
           host: ${{ secrets.K8S_HOST }}
-          user: ${{ secrets.K8S_USERNAME }}
+          username: ${{ secrets.K8S_USERNAME }}
+          password: ${{ secrets.K8S_PASSWORD }}
           port: ${{ secrets.K8S_PORT }}
-          pass: ${{ secrets.K8S_PASSWORD }}
+          script: kubectl rollout restart deployment gymapp-deployment
+
+
+
 
