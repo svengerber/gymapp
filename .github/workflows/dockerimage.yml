@@ -1,9 +1,6 @@
-name: Beta Deployment CI
+name: Gymapp Deployment CI
 
-on:
-  push:
-    branches:
-      - beta
+on: [push]
 
 jobs:
 
@@ -31,8 +28,19 @@ jobs:
       - name: Push to GitHub Docker Registry
         run: docker push docker.pkg.github.com/captain-svxn/gymapp/ci-deploy:${GITHUB_REF##*/}
         
-      - name: Deploy to K8S Cluster
+      - name: Deploy Master to K8S Cluster
         uses: appleboy/ssh-action@master
+        if: ${GITHUB_REF##*/} == master
+        with:
+          host: ${{ secrets.K8S_HOST }}
+          username: ${{ secrets.K8S_USERNAME }}
+          password: ${{ secrets.K8S_PASSWORD }}
+          port: ${{ secrets.K8S_PORT }}
+          script: kubectl rollout restart deployment gymapp -n gymapp
+        
+      - name: Deploy Beta to K8S Cluster
+        uses: appleboy/ssh-action@master
+        if: ${GITHUB_REF##*/} == beta
         with:
           host: ${{ secrets.K8S_HOST }}
           username: ${{ secrets.K8S_USERNAME }}
