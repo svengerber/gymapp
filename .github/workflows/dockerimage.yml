@@ -1,4 +1,5 @@
-name: Master Deployment CI
+
+name: Gymapp Deployment CI
 
 on:
   push:
@@ -7,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  build-and-deploy:
 
     runs-on: ubuntu-latest
     
@@ -16,10 +17,12 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v1
         
-      - name: Branch name
-        run: echo running on branch ${GITHUB_REF##*/}
+      - name: Listing Branch and Ref
+        run: |
+          echo running on branch ${GITHUB_REF##*/}
+          echo ref context is ${{github.ref}}
         
-      - name: Build
+      - name: Building Docker Image
         run: docker build -t docker.pkg.github.com/captain-svxn/gymapp/ci-deploy:${GITHUB_REF##*/} .
       
       - name: Login to GitHub Docker Registry
@@ -28,17 +31,29 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.GITHUB_DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Push to GitHub Docker Registry
+      - name: Push Docker Image to GitHub Docker Registry
         run: docker push docker.pkg.github.com/captain-svxn/gymapp/ci-deploy:${GITHUB_REF##*/}
         
-      - name: Deploy to K8S Cluster
+      - name: Deploying Master to K8S Cluster
         uses: appleboy/ssh-action@master
+        if: github.ref == 'refs/heads/master'
         with:
           host: ${{ secrets.K8S_HOST }}
           username: ${{ secrets.K8S_USERNAME }}
           password: ${{ secrets.K8S_PASSWORD }}
           port: ${{ secrets.K8S_PORT }}
           script: kubectl rollout restart deployment gymapp -n gymapp
+  
+      - name: Deploying Beta to K8S Cluster
+        uses: appleboy/ssh-action@master
+        if: github.ref == 'refs/heads/beta'
+        with:
+          host: ${{ secrets.K8S_HOST }}
+          username: ${{ secrets.K8S_USERNAME }}
+          password: ${{ secrets.K8S_PASSWORD }}
+          port: ${{ secrets.K8S_PORT }}
+          script: kubectl rollout restart deployment gymapp-beta -n gymapp
+
 
 
 
