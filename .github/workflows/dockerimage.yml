@@ -36,5 +36,6 @@ jobs:
             echo "Command has been run"
           host: ${{ secrets.K8S_HOST }}
           user: ${{ secrets.K8S_USERNAME }}
+          port: ${{ secrets.K8S_PORT }}
           pass: ${{ secrets.K8S_PASSWORD }}
 
