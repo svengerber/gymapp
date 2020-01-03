@@ -27,4 +27,11 @@ jobs:
       
       - name: Push to GitHub Docker Registry
         run: docker push docker.pkg.github.com/captain-svxn/gymapp/ci-deploy:${GITHUB_REF##*/}
-      
+        
+      - name: Deploy to K8S Cluster
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: kubectl rollout restart deployment gymapp-deployment
+          host: ${{ secrets.K8S_HOST }}
+          username: ${{ secrets.K8S_USERNAME }}
+          passphrase: ${{ secrets.K8S_PASSWORD }}
