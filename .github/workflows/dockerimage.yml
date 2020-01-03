@@ -1,10 +1,7 @@
 
 name: Gymapp Deployment CI
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
 
