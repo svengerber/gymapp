@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.K8S_USERNAME }}
           password: ${{ secrets.K8S_PASSWORD }}
           port: ${{ secrets.K8S_PORT }}
-          script: kubectl rollout restart deployment gymapp-beta
+          script: kubectl rollout restart deployment gymapp-beta -n gymapp
 
 
 
