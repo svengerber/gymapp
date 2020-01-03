@@ -1,6 +1,9 @@
-name: Docker Image und Deployment CI
+name: Master Deployment CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
 
@@ -35,7 +38,7 @@ jobs:
           username: ${{ secrets.K8S_USERNAME }}
           password: ${{ secrets.K8S_PASSWORD }}
           port: ${{ secrets.K8S_PORT }}
-          script: kubectl rollout restart deployment gymapp-deployment
+          script: kubectl rollout restart deployment gymapp -n gymapp
 
 
 
