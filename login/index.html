@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Montserrat:400,500|Orbitron|Poiret+One" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../includes/javascript/login.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../includes/sass/login.min.css"/>
+    <title>Home</title>
+  </head>
+
+  <body>
+    <section id="login">
+    	<div class="cont">
+      	<form class="form sign-in" onsubmit="return false">
+        	<h2>Welcome back,</h2>
+    			<label>
+    				<span>username</span>
+    				<input class="input" id="form_signin_name" name="form_signin_name" required="required" type="text" size="20" autocomplete="on" />
+    			</label>
+    			<label>
+    				<span>Password</span>
+    				<input class="input" id="form_signin_password" name="form_signin_password" required="required" type="password" size="40" autocomplete="on" />
+    			</label>
+    			<input id="btn_signin" type="submit" class="submit" value="Sign In"></input>
+    		</form>
+    	  <div class="sub-cont">
+    			<div class="img">
+    		 		<div class="img__text m--up">
+              <h2>New here?</h2>
+              <p>Sign up and enjoy it!</p>
+    			  </div>
+      			<div class="img__text m--in">
+      				<h2>One of us?</h2>
+      				<p>If you already have an account, just sign in. We've missed you!</p>
+      			</div>
+      			<div class="img__btn">
+              <span class="m--up">Sign Up</span>
+      				<span class="m--in">Sign In</span>
+      		 	</div>
+          </div>
+    			<form class="form sign-up" id="signup" action="" method="post" autocomplete="on">
+    		  	<h2>Time to feel like home,</h2>
+    				<label>
+    					<span>Username</span>
+    					<input class="input" id="form_signup_name" name="form_signup_name" required="required" type="text" size="20" autocomplete="off" />
+    				</label>
+    				<label>
+    					<span>Email</span>
+    					<input class="input" id="form_signup_mail" name="form_signup_mail" type="email" required="required" size="20" autocomplete="off" />
+    				</label>
+    				<label>
+    					<span>Password</span>
+    					<input class="input" id="form_signup_password" name="form_signup_password" required="required" type="password" size="20" autocomplete="off" />
+    				</label>
+    				<label>
+    					<span>Password again</span>
+    					<input class="input" id="form_signup_password2" name="form_signup_password2" required="required" type="password" size="20" autocomplete="off" />
+    				</label>
+    				<input id="btn_signup" class="submit" value="Sign Up" ></input>
+    			</form>
+    	  </div>
+    	</div>
+    </section>
+  </body>
+</html>
